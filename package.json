@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Wadboy70/Opensource-Project-Finder#readme",
   "dependencies": {
+    "@octokit/rest": "^18.0.6",
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
