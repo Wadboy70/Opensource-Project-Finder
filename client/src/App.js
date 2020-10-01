@@ -3,18 +3,26 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  const [languageOption, setLang] = useState("java");
+  const [language, setLanguage] = useState("java");
+  const [skill, setSkill] = useState("");
+  const [size, setSize] = useState("<=1000");
+  const [age, setAge] = useState("");
 
   const search = (e) => {
     e.preventDefault();
 
     console.log(e.target.value);
-    const formRes = JSON.stringify({ language: languageOption });
+    const formRes = JSON.stringify({
+      language: language,
+      skill: skill,
+      size: size,
+      age: age,
+    });
 
     fetch("/form", {
       method: "POST",
       headers: {
-        Accept: "applications/json",
+        Accept: "application/json",
         "Content-type": "application/json",
       },
       body: formRes,
@@ -24,7 +32,7 @@ function App() {
   };
 
   const handleSelectChange = (e) => {
-    setLang(e.target.value);
+    setLanguage(e.target.value);
   };
 
   return (
@@ -32,7 +40,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <form method="post" onSubmit={search} className="lang-form">
-          <select name="languages" onChange={handleSelectChange}>
+          <select name="topic" onChange={handleSelectChange}>
             <option value="java">Java</option>
             <option value="python">Python</option>
             <option value="reactjs">React</option>
