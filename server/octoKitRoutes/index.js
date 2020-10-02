@@ -35,7 +35,7 @@ const searchRepos = async ({topic, language}) => {
     }
 }
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
     res.send(await searchRepos(req.body));
 });
 
