@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+  const [topic, setTopic] = useState("");
   const [language, setLanguage] = useState("java");
   const [skill, setSkill] = useState("");
   const [size, setSize] = useState("<=1000");
@@ -13,6 +14,7 @@ function App() {
 
     console.log(e.target.value);
     const formRes = JSON.stringify({
+      topic: topic,
       language: language,
       skill: skill,
       size: size,
