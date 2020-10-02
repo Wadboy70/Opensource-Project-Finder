@@ -8,11 +8,12 @@ const cors = require("cors");
 app.use(bodyParser.json());
 app.use(cors());
 
+//Github searching routes
+
+const octoKitRoutes = require("./octoKitRoutes/index");
+app.use("/search", octoKitRoutes);
+
 //Routes
-app.get("/hi", (req, res) => {
-  res.send("Hi!");
-  console.log("hello");
-});
 
 app.get("*", (req, res) => {
   res.send("Hello World!!");
