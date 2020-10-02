@@ -21,7 +21,7 @@ function App() {
       age: age,
     });
 
-    fetch("/form", {
+    fetch("/", {
       method: "POST",
       headers: {
         Accept: "application/json",
