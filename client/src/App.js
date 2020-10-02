@@ -1,24 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
-  fetch('/hi').then(res => console.log(res));
+  const [topic, setTopic] = useState("");
+  const [language, setLanguage] = useState("java");
+  const [skill, setSkill] = useState("");
+  const [size, setSize] = useState("<=1000");
+  const [age, setAge] = useState("");
+
+  const search = (e) => {
+    e.preventDefault();
+
+    console.log(e.target.value);
+    const formRes = JSON.stringify({
+      topic: topic,
+      language: language,
+      skill: skill,
+      size: size,
+      age: age,
+    });
+
+    fetch("/search", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: formRes,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
+  const handleSelectChange = (e) => {
+    setLanguage(e.target.value);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form method="post" onSubmit={search} className="lang-form">
+          <select name="topic" onChange={handleSelectChange}>
+            <option value="java">Java</option>
+            <option value="python">Python</option>
+            <option value="reactjs">React</option>
+            <option value="c++">C++</option>
+          </select>
+          <button
+            className="submit-button"
+            type="submit"
+            // disabled={typeof languageOption === "undefined"}
+          >
+            Search
+          </button>
+        </form>
       </header>
     </div>
   );
