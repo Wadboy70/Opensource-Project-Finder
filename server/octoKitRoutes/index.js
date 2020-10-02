@@ -9,6 +9,7 @@ const { Octokit } = require("@octokit/rest");
     request format:
     req.body{
         topic: "tetris",
+        language: "react",
         skill: "",
         size: "<=1000",
         age: "",
@@ -19,11 +20,13 @@ const octoKit = new Octokit({
     userAgent: "OpenSourceProjectFind v.1"
 });
 
-const searchRepos = async ({topic}) => {
+const searchRepos = async ({topic, language}) => {
     let results;
+    const query = `${topic}${language? `+language:${language}` : ''}`;
+    console.log(query);
     try{
         results = await octoKit.search.repos({
-            q:`${topic}`
+            q:query
         });
         return results.data.items;
     }
