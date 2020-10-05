@@ -11,8 +11,7 @@ const { Octokit } = require("@octokit/rest");
         *topic: "tetris",
         language: "react",
         skill: "beg",
-        followers: "<100",
-        age: "<3",
+        followers: "<100"
     }
     sort by help-wanted-issues:>n
     finding age: css pushed:>2013-02-01
@@ -24,11 +23,11 @@ const octoKit = new Octokit({
 const calculateScoreCount = (skill) => {
     switch (skill) {
         case 'beg':
-            return 'good-first-issue:>10';
+            return '+good-first-issue:>10';
         case 'int':
-            return 'good-first-issue:>5';
+            return '+good-first-issue:>5+help-wanted:>1';
         case 'int':
-            return 'help-wanted:>5'
+            return '+help-wanted:>10'
         default:
             return null
     };
@@ -39,6 +38,8 @@ const searchRepos = async ({topic, language, skill, followers, age}) => {
     let skillVal = calculateScoreCount(skill);
     const query = `${topic}
     ${language ? `+topic:${language}` : ''}
+    ${skillVal ? `+${language}` : ''}
+    ${followers ? `+followers:${followers}` : ''}
     ${age ? `+pushed:${age}` : ''}`;
     console.log(query);
     try{
