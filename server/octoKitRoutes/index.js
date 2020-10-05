@@ -8,26 +8,37 @@ const { Octokit } = require("@octokit/rest");
 /*
     request format:
     req.body{
-        topic: "tetris",
+        *topic: "tetris",
         language: "react",
-        skill: ,
-        size(followers): "<1000",
-        age: "<1000",
-
+        skill: "beg",
+        followers: "<100",
+        age: "<3",
     }
-    for right now only the topic search ability works :P
+    sort by help-wanted-issues:>n
+    finding age: css pushed:>2013-02-01
 */
 const octoKit = new Octokit({
     userAgent: "OpenSourceProjectFind v.1"
 });
 
-//finding age: css pushed:>2013-02-01
+const calculateScoreCount = (skill) => {
+    switch (skill) {
+        case 'beg':
+            return 'good-first-issue:>10';
+        case 'int':
+            return 'good-first-issue:>5';
+        case 'int':
+            return 'help-wanted:>5'
+        default:
+            return null
+    };
+};
 
-const searchRepos = async ({topic, language}) => {
+const searchRepos = async ({topic, language, skill, followers, age}) => {
     let results;
+    let skillVal = calculateScoreCount(skill);
     const query = `${topic}
     ${language ? `+topic:${language}` : ''}
-    ${size ? `+size:${size}` : ''}
     ${age ? `+pushed:${age}` : ''}`;
     console.log(query);
     try{
