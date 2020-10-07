@@ -1,0 +1,17 @@
+.repos-container {
+  margin: 20px;
+}
+
+.repo-info-container {
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-name {
+  margin: 5px 0px;
+}
+
+.repo-description {
+  margin: 0;
+}
