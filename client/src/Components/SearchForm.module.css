@@ -1,0 +1,24 @@
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.form-field > *:not(label) {
+  width: 40%;
+  margin: 0px 0px 0px auto;
+}
+
+.submit-button {
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 100px;
+  height: 30px;
+}
