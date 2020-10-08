@@ -26,7 +26,7 @@ const calculateScoreCount = (skill) => {
             return '+good-first-issue:>10';
         case 'int':
             return '+good-first-issue:>5+help-wanted:>1';
-        case 'int':
+        case 'exp':
             return '+help-wanted:>10'
         default:
             return null

@@ -17,6 +17,7 @@ app.use("/search", octoKitRoutes);
 
 app.get("*", (req, res) => {
   res.send("Hello World!!");
+  console.log('hello');
 });
 
 app.post("/form", (req, res) => {
