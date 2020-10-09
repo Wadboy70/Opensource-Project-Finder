@@ -5,9 +5,9 @@ import SearchForm from "./Components/SearchForm";
 import RepoList from "./Components/RepoList";
 
 function App() {
-  const [repoList, setRepoList] = useState({});
+  const [repoList, setRepoList] = useState([]);
 
-  const search = (jsonReq) => {
+  const search = (jsonReq: string) => {
     fetch("/search", {
       method: "POST",
       headers: {
@@ -19,7 +19,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setRepoList(data);
+        setRepoList(Object.values(data));
       });
   };
 
@@ -28,7 +28,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <SearchForm searchFunction={search} />
-        <RepoList repoData={repoList} />
+        <RepoList repoDataList={repoList} />
       </header>
     </div>
   );

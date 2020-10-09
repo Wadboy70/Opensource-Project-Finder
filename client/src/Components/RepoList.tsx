@@ -1,11 +1,23 @@
 import React from "react";
 import module_styles from "./RepoList.module.css";
 
-function RepoList({ repoData }) {
+interface repoData {
+  name: string;
+  language: string;
+  open_issues: number;
+  size: number;
+  created_at: Date;
+  html_url: string;
+}
+
+function RepoList(props: { repoDataList: repoData[] }) {
   return (
     <div className={module_styles["repos-container"]}>
-      {Object.values(repoData).map((elem) => (
-        <div className={module_styles["repo-info-container"]}>
+      {Object.values(props.repoDataList).map((elem, index) => (
+        <div
+          className={module_styles["repo-info-container"]}
+          key={`repo-info-${index}`}
+        >
           <h3 className={module_styles["repo-name"]}>Name: {elem.name}</h3>
           <h6 className={module_styles["repo-description"]}>
             Language: {elem.language}

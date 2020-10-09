@@ -1,34 +1,39 @@
 import React, { useState } from "react";
+import {
+  ageParameter,
+  followersParameter,
+  skillParameter,
+} from "../react-app-env";
 import module_styles from "./SearchForm.module.css";
 
-function SearchForm({ searchFunction }) {
-  const [topic, setTopic] = useState("");
-  const [language, setLanguage] = useState("java");
-  const [skill, setSkill] = useState("beg");
-  const [followers, setFollowers] = useState("");
-  const [age, setAge] = useState(""); //currently this gives an error since github api expects a datetime object I think
+function SearchForm(props: { searchFunction: Function }) {
+  const [topic, setTopic] = useState<string>("");
+  const [language, setLanguage] = useState<string>("java");
+  const [skill, setSkill] = useState<skillParameter>("beg");
+  const [followers, setFollowers] = useState<followersParameter>(Infinity);
+  const [age, setAge] = useState<ageParameter>(3); //currently this gives an error since github api expects a datetime object I think
 
-  const handleTopicChange = (e) => {
-    setTopic(e.target.value ?? "");
+  const handleTopicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTopic(e.currentTarget.value ?? "");
   };
 
-  const handleLanguageChange = (e) => {
-    setLanguage(e.target.value);
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLanguage(e.currentTarget.value);
   };
 
-  const handleSkillChange = (e) => {
-    setSkill(e.target.value);
+  const handleSkillChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSkill(e.currentTarget.value as skillParameter);
   };
 
-  const handleFollowersChange = (e) => {
-    setFollowers(e.target.value);
+  const handleFollowersChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFollowers(e.currentTarget.value);
   };
 
-  const handleAgeChange = (e) => {
-    setAge(e.target.value);
+  const handleAgeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAge((e.currentTarget.value as unknown) as ageParameter);
   };
 
-  const search = (e) => {
+  const search = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const RepoReq = JSON.stringify({
@@ -39,7 +44,7 @@ function SearchForm({ searchFunction }) {
       age: age,
     });
 
-    searchFunction(RepoReq);
+    props.searchFunction(RepoReq);
   };
 
   return (
@@ -78,21 +83,21 @@ function SearchForm({ searchFunction }) {
           id="followers"
           onChange={handleFollowersChange}
         >
-          <option value="">Unlimited</option>
-          <option value="<5">Minimal (Less than 5)</option>
-          <option value="<10">Small (Less than 10)</option>
-          <option value="<50">Medium (Less than 50)</option>
-          <option value="<100">Popular (Less than 100)</option>
-          <option value="<500">Very Popular (Less than 500)</option>
+          <option value={Infinity}>Unlimited</option>
+          <option value={5}>Minimal (Less than 5)</option>
+          <option value={10}>Small (Less than 10)</option>
+          <option value={50}>Medium (Less than 50)</option>
+          <option value={100}>Popular (Less than 100)</option>
+          <option value={500}>Very Popular (Less than 500)</option>
         </select>
       </div>
       <div className={module_styles["form-field"]}>
         <label htmlFor="age">Repo Age: </label>
         <select name="age" id="age" onChange={handleAgeChange}>
-          <option value="<3">Less than 3 months</option>
-          <option value="<6">Less than 6 months</option>
-          <option value="<12">Less than 1 year</option>
-          <option value="<60">Less than 5 years</option>
+          <option value={3}>Less than 3 months</option>
+          <option value={6}>Less than 6 months</option>
+          <option value={12}>Less than 1 year</option>
+          <option value={60}>Less than 5 years</option>
         </select>
       </div>
       <button
